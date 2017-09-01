@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scr-service
+  labels:
+    app: scr-service
+    tier: backend
+spec:
+  type: "LoadBalancer"
+  ports:
+    # the port that this service should serve on
+  - port: 30770
+    targetPort: 30770
+    nodePort: 30770
+    name: scr
+  externalIPs: ["124.46.72.71"]
+  selector:
+    app: scr-service
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: scr-service
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: scr-service
+        tier: backend
+    spec:
+      imagePullSecrets:
+        - name: hub-deploy
+      containers:
+      - name: scr-service
+        image: hub.kaaiot.io/kaaiot/scr/scr-service:1.0.0-SNAPSHOT
+        terminationMessagePolicy: FallbackToLogsOnError
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: scr-port
+          timeoutSeconds: 50
+          initialDelaySeconds: 200
+          periodSeconds: 50
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: scr-port
+          timeoutSeconds: 50
+          initialDelaySeconds: 50
+          periodSeconds: 50
+        volumeMounts:
+          - mountPath: /usr/lib/scr-service/conf
+            name: scr-conf-volume
+        resources:
+          requests:
+            memory: 350Mi
+          limits:
+            memory: 1Gi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: NATS_HOST_PORT
+          value: nats://nats-service.default.svc.cluster.local:4222
+        - name : PRIVATE_DNS_HOST
+          value: "10.2.2.45" #cybervision dns
+        - name: CONFIGURATION_REPOSITORY_URL
+          value: https://gitlab.kaaiot.io/evangelism/solutions/gizmo/blueprint.git
+        - name: CONFIGURATION_REPOSITORY_USERNAME
+          value: "webui-test"
+        - name: CONFIGURATION_REPOSITORY_PASSWORD
+          value: "webui-pass"
+        - name: CONFIGURATION_REPOSITORY_SEARCH_PATHS
+          value: "/scr"
+        - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
+          value: "60"    # -1 means unlimited timeout
+        - name: JMX_PORT
+          value: "30771"
+        - name: JMX_MONITOR_USER_PASSWORD
+          value: monitor
+        - name: JAVA_OPTIONS
+          value: -Xmx700m
+        - name: APP_CONFIG_PATH
+          value: /usr/lib/scr-service/conf/app/app-config.yml
+        ports:
+        - name: scr-port
+          containerPort: 30770
+        - name: jmx-port
+          containerPort: 30771
+      volumes:
+        - name: scr-conf-volume
+          hostPath:
+            path: /usr/lib/scr-service/conf

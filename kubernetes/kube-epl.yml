@@ -1,0 +1,112 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: epl-service
+  labels:
+    app: epl-service
+    tier: backend
+spec:
+  type: "LoadBalancer"
+  ports:
+  - port: 30810
+    targetPort: 30810
+    nodePort: 30810
+    name: epl
+  selector:
+    app: epl-service
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: epl-service
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: epl-service
+        tier: backend
+    spec:
+      containers:
+      - name: epl-service
+        image: registry.kaaiot.io:5000/epl-service:1.0.0-SNAPSHOT
+        imagePullPolicy: always
+        terminationMessagePolicy: FallbackToLogsOnError
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: epl-port
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        name: liveness
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: epl-port
+          initialDelaySeconds: 1
+          periodSeconds: 1
+        name: readiness
+        volumeMounts:
+          - mountPath: /usr/lib/epl-service/conf
+            name: epl-conf-volume
+        resources:
+          requests:
+            memory: 100Mi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: MONGO_DATABASE
+          value: epl_service
+        - name: MONGO_HOST
+          value: mongo.default.svc.cluster.local
+        - name: MONGO_USERNAME
+          value: "USERNAME"
+        - name: MONGO_PASSWORD
+          value: "PASSWORD"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_THREADS_ALLOWED_TO_BLOCK_FOR_CONNECTION_MULTIPLIER
+          value: "5"
+        - name: MONGO_CONNECTIONS_PER_HOST
+          value: "100"
+        - name: MONGO_MAX_WAIT_TIME
+          value: "120000"
+        - name: MONGO_CONNECTION_TIMEOUT
+          value: "5000"
+        - name: MONGO_SOCKET_TIMEOUT
+          value: "0"
+        - name: MONGO_SOCKET_KEEP_ALIVE
+          value: "false"
+        - name: INSTANCE_NAME
+          value: epl
+        - name: KPC_INSTANCE_NAME
+          value: kpc
+        - name: JAVA_OPTIONS
+          value: -Xmx700m
+        - name: NATS_HOST_PORT
+          value: nats://nats-service.default.svc.cluster.local:4222
+        - name: EPR_HOST_PORT
+          value: http://epr-service.default.svc.cluster.local:30750
+        - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
+          value: "120"
+        - name: APP_CONFIG_PATH
+          value: /usr/lib/epl-service/conf/app/app-config.yml
+        - name: JMX_PORT
+          value: "30811"
+        - name: JMX_MONITOR_USER_PASSWORD
+          value: monitor
+        - name: CONFIG_REPOSITORY_SERVICE_URL=http://scr-service:30770
+          value: "http://scr-service.default.svc.cluster.local:30770"
+        ports:
+        - name: epl-port
+          containerPort: 30810
+        - name: jmx-port
+          containerPort: 30811
+      volumes:
+        - name: epl-conf-volume
+          hostPath:
+            path: /usr/lib/epl-service/conf
+

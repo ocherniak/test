@@ -1,0 +1,97 @@
+---
+common:
+  autoUpdate: 3000
+dashboards:
+  -
+    description: "Gizmo monitoring solution"
+    displayDescription: true
+    displayTitle: true
+    icons:
+      default: router/grey.svg
+      hover: router/hovered.svg
+      selected: router/orange.svg
+    isTopLevel: true
+    path: /gizmo
+    title: Gizmo
+    widgets:
+      -
+        config:
+          applicationName: gizmo_v1
+          baseUrl: api/v1
+          columns:
+            -
+              display: ID
+              path: endpointId
+            -
+              display: Created
+              path: createdDate
+          displayTitle: true
+          generate: true
+          generateTimeout: 1000
+          generateTitle: "Generate new"
+          height: 500
+          itemLink:
+            parameters:
+              -
+                itemJsonPath: "widgetConfig.columns[0].display"
+                name: gizmo_id
+                type: path
+            path: "/gizmo/{gizmo_id}"
+          metadata: metadata
+          name: sensorDevices.json
+          service: API_EPR
+          source: EPList
+          title: Devices
+        height: 500
+        percentWidth: 100
+        source: EPList
+      -
+        config:
+          applicationName: gizmo
+          baseUrl: api/v1
+          columns:
+            -
+              display: Token
+              path: token
+            -
+              display: Status
+              path: status
+            -
+              display: Created
+              path: createdDate
+            -
+              display: "Gizmo ID"
+              path: endpointId
+          displayTitle: true
+          generate: true
+          generateTimeout: 1000
+          generateTitle: "Generate new"
+          height: 500
+          itemLink:
+            parameters:
+              -
+                itemJsonPath: "widgetConfig.columns[3].display"
+                name: gizmo_id
+                type: path
+            path: "/gizmo/{gizmo_id}"
+          service: API_CRED
+          source: credentialsList
+          title: Credentials
+        height: 500
+        percentWidth: 100
+  -
+    displayDescription: true
+    displayTitle: true
+    title: Gizmo
+    icons:
+      default: router/grey.svg
+      hover: router/hovered.svg
+      selected: router/orange.svg
+    isTopLevel: false
+    path: "/gizmo/:id"
+
+
+info:
+  logo: "http://some_path"
+  theme: night
+title: MyCompany

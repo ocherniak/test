@@ -1,0 +1,6 @@
+applications:
+- name: gizmo
+  versions:
+  - name: gizmo_v1
+    number: 1
+    trustfulMode: true
