@@ -1,0 +1,14 @@
+applications:
+- name: gizmo
+  versions:
+  - name: gizmo_v1
+    number: 1
+    metadata-keys:
+    - name: token
+      write-enabled: true
+    - name: origin
+      write-enabled: true
+    - name: destination
+      write-enabled: true
+    - name: routeUpdated
+      write-enabled: true

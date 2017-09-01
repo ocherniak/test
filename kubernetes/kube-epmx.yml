@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: epmx-service
+  labels:
+    app: epmx-service
+    tier: backend
+spec:
+  type: "LoadBalancer"
+  ports:
+  - port: 30800
+    targetPort: 30800
+    nodePort: 30800
+    name: epmx
+  selector:
+    app: epmx-service
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: epmx-service
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: epmx-service
+        tier: backend
+    spec:
+      imagePullSecrets:
+        - name: hub-deploy
+      containers:
+      - name: epmx-service
+        image: hub.kaaiot.io/kaaiot/epmx/epmx-service:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
+        terminationMessagePolicy: FallbackToLogsOnError
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: epmx-port
+          initialDelaySeconds: 150
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: epmx-port
+          initialDelaySeconds: 1
+          periodSeconds: 1
+        volumeMounts:
+          - mountPath: /usr/lib/epmx-service/conf
+            name: epmx-conf-volume
+          - mountPath: /epmx-conf/app
+            name: epmx-app-conf-volume
+        resources:
+          requests:
+            memory: 350Mi
+          limits:
+            memory: 1Gi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: EPR_HOST_PORT
+          value: http://epr-service.default.svc.cluster.local:30750
+        - name: INSTANCE_NAME
+          value: epmx
+        - name: NATS_HOST_PORT
+          value: nats://nats-service.default.svc.cluster.local:4222
+        - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
+          value: "120"
+        - name: JAVA_OPTIONS
+          value: -Xmx700m
+        - name: APP_CONFIG_PATH
+          value: /epmx-conf/app/app-config.yml
+        - name: JMX_PORT
+          value: "30801"
+        - name: JMX_MONITOR_USER_PASSWORD
+          value: monitor
+        - name: CONFIG_REPOSITORY_SERVICE_URL
+          value: "http://scr-service.default.svc.cluster.local:30770"
+        ports:
+        - name: epmx-port
+          containerPort: 30800
+        - name: jmx-port
+          containerPort: 30801
+      volumes:
+        - name: epmx-conf-volume
+          hostPath:
+            path: /usr/lib/epmx-service/conf
+        - name: epmx-app-conf-volume
+          hostPath:
+            path: /usr/lib/epmx-service/conf/app

@@ -1,0 +1,8 @@
+applications:
+  - name: gizmo
+    versions:
+      - name: gizmo_v1
+        number: 1
+        connectivity-metadata:
+          state: connected
+          transition-timestamp: connectivity-ts
