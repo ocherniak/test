@@ -14,11 +14,11 @@ fi
 
 kubectl $1 -f kubernetes/kube-nats.yml
 
+kubectl $1 -f kubernetes/kube-scr.yml
 kubectl $1 -f kubernetes/kube-kpc.yml
 kubectl $1 -f kubernetes/kube-cm.yml
 kubectl $1 -f kubernetes/kube-epr.yml
 kubectl $1 -f kubernetes/kube-epmx.yml
-kubectl $1 -f kubernetes/kube-scr.yml
 kubectl $1 -f kubernetes/kube-epl.yml
 kubectl $1 -f kubernetes/kube-wd.yml
 
