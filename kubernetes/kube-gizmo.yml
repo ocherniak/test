@@ -1,0 +1,81 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gizmo-service
+  labels:
+    app: gizmo-service
+    tier: backend
+spec:
+  type: "LoadBalancer"
+  ports:
+  - port: 32702
+    targetPort: 32702
+    nodePort: 32702
+    name: gizmo
+  selector:
+    app: gizmo-service
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gizmo-service
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gizmo-service
+        tier: backend
+    spec:
+      imagePullSecrets:
+        - name: hub-deploy
+      containers:
+      - name: gizmo-service
+        image: hub.kaaiot.io/evangelism/solutions/industrial/gizmo/simulators/gizmo/gizmo-service:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
+        terminationMessagePolicy: FallbackToLogsOnError
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: gizmo-port
+          initialDelaySeconds: 150
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: gizmo-port
+          initialDelaySeconds: 1
+          periodSeconds: 1
+        volumeMounts:
+          - mountPath: /usr/lib/gizmo-service/conf
+            name: gizmo-conf-volume
+        resources:
+          requests:
+            memory: 350Mi
+          limits:
+            memory: 1Gi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: INSTANCE_NAME
+          value: gizmo
+        - name: NATS_HOST_PORT
+          value: nats://nats-service.default.svc.cluster.local:4222
+        - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
+          value: "60"
+        - name: JAVA_OPTIONS
+          value: -Xmx700m
+        - name: CONFIG_REPOSITORY_SERVICE_URL
+          value: "http://scr-service.default.svc.cluster.local:30770"
+        - name: SERVICE_CONFIG_PATH
+          value: /usr/lib/gizmo-service/conf/service-config.yml
+        ports:
+        - name: gizmo-port
+          containerPort: 32702
+      volumes:
+        - name: gizmo-conf-volume
+          hostPath:
+            path: /usr/lib/gizmo-service/conf
