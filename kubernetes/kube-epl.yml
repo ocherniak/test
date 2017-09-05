@@ -43,14 +43,12 @@ spec:
             port: epl-port
           initialDelaySeconds: 30
           periodSeconds: 5
-        name: liveness
         readinessProbe:
           httpGet:
             path: /health
             port: epl-port
           initialDelaySeconds: 1
           periodSeconds: 1
-        name: readiness
         volumeMounts:
           - mountPath: /usr/lib/epl-service/conf
             name: epl-conf-volume
