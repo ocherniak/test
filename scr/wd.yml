@@ -15,9 +15,19 @@ dashboards:
     title: Gizmo
     widgets:
       -
+        height: 500
+        percentWidth: 100
         config:
-          applicationName: gizmo_v1
+          displayTitle: true
+          title: Gizmo list
+          applicationName: gizmo
+          service: API_EPR
+          generate: true
+          generateTitle: Generate new
+          generateTimeout: 1000
           baseUrl: api/v1
+          type: epList
+          height: 500
           columns:
             -
               display: ID
@@ -25,26 +35,12 @@ dashboards:
             -
               display: Created
               path: createdDate
-          displayTitle: true
-          generate: true
-          generateTimeout: 1000
-          generateTitle: "Generate new"
-          height: 500
           itemLink:
+            path: "/gizmo/{gizmo_id}"
             parameters:
-              -
                 itemJsonPath: "widgetConfig.columns[0].display"
                 name: gizmo_id
-                type: path
-            path: "/gizmo/{gizmo_id}"
           metadata: metadata
-          name: sensorDevices.json
-          service: API_EPR
-          source: EPList
-          title: Devices
-        height: 500
-        percentWidth: 100
-        source: EPList
       -
         config:
           applicationName: gizmo
@@ -69,13 +65,11 @@ dashboards:
           height: 500
           itemLink:
             parameters:
-              -
                 itemJsonPath: "widgetConfig.columns[3].display"
                 name: gizmo_id
-                type: path
             path: "/gizmo/{gizmo_id}"
-          service: API_CRED
-          source: credentialsList
+          service: API_CM
+          type: credentialsList
           title: Credentials
         height: 500
         percentWidth: 100
@@ -89,9 +83,228 @@ dashboards:
       selected: router/orange.svg
     isTopLevel: false
     path: "/gizmo/:id"
+    widgets:
+      -
+        config:
+          allEditable: true
+          allFields: true
+          baseUrl: api/v1
+          fields:
+            -
+              dataType: string
+              displayName: "Rule name"
+              isEditable: false
+              path: metadata
+              regexName: .*
+              section: metadata
+          height: 500
+          service: API_EPR
+          type: metadata
+          title: Rules
+        height: 500
+        percentWidth: 60
+      - percentWidth: 33.33
+        height: 500
+        config:
+          displayTitle: true
+          title: value1
+          type: gauge
+          service: API_EPTS
+          baseUrl: api/v1
+          dataPath: value
+          skin: HorizontalBottom
+          ranges:
+            min: 25
+            max: 26.5
+            step: 0.25
+          updateInterval: 3
+          emptyQueriesMax: 0
+          timeSegment: 5
+          displayScale: 3
+          displayPostfix: °C
+          timeSeriesParams:
+            - name: endpointId
+              itemJsonPath: dashboardRouteParams.id
+          timeSeriesName: value1
+      - percentWidth: 33.33
+        height: 500
+        config:
+          displayTitle: true
+          title: value2
+          type: gauge
+          service: API_EPTS
+          baseUrl: api/v1
+          dataPath: value
+          skin: HorizontalBar
+          ranges:
+            min: 25
+            max: 26.5
+            lowCritical: 25.2
+            lowWarning: 25.4
+            highWarning: 26.1
+            highCritical: 26.3
+          updateInterval: 3
+          emptyQueriesMax: 0
+          timeSegment: 5
+          displayScale: 3
+          displayPostfix: °C
+          timeSeriesParams:
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
+          timeSeriesName: value2
+      - percentWidth: 33.33
+        height: 500
+        config:
+          displayTitle: true
+          title: value3
+          type: gauge
+          service: API_EPTS
+          baseUrl: api/v1
+          dataPath: value
+          skin: HorizontalArrow
+          ranges:
+            min: 25
+            max: 26.5
+            lowCritical: 25.2
+            lowWarning: 25.4
+            highWarning: 26.1
+            highCritical: 26.3
+          updateInterval: 3
+          emptyQueriesMax: 0
+          timeSegment: 5
+          displayScale: 3
+          displayPostfix: "°C"
+          timeSeriesParams:
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
+          timeSeriesName: value3
+      - percentWidth: 33.33
+        height: 500
+        config:
+          displayTitle: true
+          title: value4
+          type: gauge
+          service: API_EPTS
+          baseUrl: api/v1
+          dataPath: value
+          skin: RadialModernBorder180
+          ranges:
+            min: 0
+            max: 40
+            step: 5
+            lowCritical: 15
+            lowWarning: 20
+            highWarning: 30
+            highCritical: 35
+          updateInterval: 3
+          emptyQueriesMax: 3
+          timeSegment: 5
+          displayScale: 3
+          displayPostfix: "°C"
+          timeSeriesParams:
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
+          timeSeriesName: value4
+      - percentWidth: 33.33
+        height: 500
+        config:
+          displayTitle: true
+          title: value5
+          type: gauge
+          service: API_EPTS
+          baseUrl: api/v1
+          dataPath: value
+          skin: RadialModernBorder270
+          ranges:
+            min: 0
+            max: 40
+            step: 5
+            lowCritical: 15
+            lowWarning: 20
+            highWarning: 30
+            highCritical: 35
+          updateInterval: 3
+          emptyQueriesMax: 3
+          timeSegment: 5
+          displayScale: 3
+          displayPostfix: "°C"
+          timeSeriesParams:
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
+          timeSeriesName: value5
+      -
+        height: 500
+        percentWidth: 100
+        config:
+          title: "value1 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value1
+            endpoints: '${dashboard.id}'
+      -
+        height: 500
+        percentWidth: 100
+        config:
+          title: "value2 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value2
+            endpoints: '${dashboard.id}'
+      -
+        height: 500
+        percentWidth: 100
+        config:
+          title: "value3 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value3
+            endpoints: '${dashboard.id}'
+      -
+        height: 500
+        percentWidth: 100
+        config:
+          title: "value4 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value4
+            endpoints: '${dashboard.id}'
+      -
+        height: 500
+        percentWidth: 100
+        config:
+          title: "value5 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value5
+            endpoints: '${dashboard.id}'
 
 
 info:
   logo: "http://some_path"
   theme: night
-title: MyCompany
+  title: MyCompany
