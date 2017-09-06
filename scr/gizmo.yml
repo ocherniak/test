@@ -1,0 +1,21 @@
+client:
+  id: mqtt-kp-client
+  call-frequency: 5 #one call per the period in minutes
+  max-attempts: 0
+  retry-timeout: 7 # in seconds
+  mqtt-broker-uri: tcp://127.0.0.1:30720
+  topic:
+    protocol-version: kp1
+    app-version-name: gizmo_v1
+    data-collection-extension:
+       name: dcx
+       publish-data-path: "json"
+    metadata-extension:
+       name: epmx
+       update-metadata-path: "update"
+
+simulator:
+  gizmos:
+    - token: 33333
+    - token: 11111
+    - token: 22222
