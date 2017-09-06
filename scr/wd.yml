@@ -65,12 +65,10 @@ dashboards:
           height: 500
           itemLink:
             parameters:
-              -
                 itemJsonPath: "widgetConfig.columns[3].display"
                 name: gizmo_id
-                type: path
             path: "/gizmo/{gizmo_id}"
-          service: API_CRED
+          service: API_CM
           type: credentialsList
           title: Credentials
         height: 500
@@ -105,7 +103,6 @@ dashboards:
           title: Rules
         height: 500
         percentWidth: 60
-        type: metadata
       - percentWidth: 33.33
         height: 500
         config:
@@ -245,7 +242,6 @@ dashboards:
           limit: 1000
           service: API_EPTS
           type: multiSeriesChart
-          timeSeriesName: Revolutions
           dataSource:
             timeSeries:
               name: value1
@@ -260,7 +256,6 @@ dashboards:
           limit: 1000
           service: API_EPTS
           type: multiSeriesChart
-          timeSeriesName: Revolutions
           dataSource:
             timeSeries:
               name: value2
@@ -275,7 +270,6 @@ dashboards:
           limit: 1000
           service: API_EPTS
           type: multiSeriesChart
-          timeSeriesName: Revolutions
           dataSource:
             timeSeries:
               name: value3
@@ -290,7 +284,6 @@ dashboards:
           limit: 1000
           service: API_EPTS
           type: multiSeriesChart
-          timeSeriesName: Revolutions
           dataSource:
             timeSeries:
               name: value4
@@ -305,7 +298,6 @@ dashboards:
           limit: 1000
           service: API_EPTS
           type: multiSeriesChart
-          timeSeriesName: Revolutions
           dataSource:
             timeSeries:
               name: value5
