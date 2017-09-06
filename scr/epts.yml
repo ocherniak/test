@@ -4,7 +4,7 @@ applications:
   - name: gizmo_v1
     number: 1
     timestamp:
-      path: "$.t"
+      path: "$.ts"
       format: sec-unix-epoch
       fallback-strategy: server-timestamp
     preprocessing:

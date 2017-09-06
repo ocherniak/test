@@ -24,6 +24,8 @@ kubectl $1 -f kubernetes/kube-wd.yml
 kubectl $1 -f kubernetes/kube-epts.yml
 kubectl $1 -f kubernetes/kube-dcx.yml
 kubectl $1 -f kubernetes/kube-wsts.yml
+kubectl $1 -f kubernetes/kube-cmx.yml
+kubectl $1 -f kubernetes/kube-ecr.yml
 
 
 echo -e '\nPods list:'

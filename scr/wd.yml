@@ -15,9 +15,19 @@ dashboards:
     title: Gizmo
     widgets:
       -
+        height: 500
+        percentWidth: 100
         config:
+          displayTitle: true
+          title: Gizmo list
           applicationName: gizmo_v1
+          service: API_EPR
+          generate: true
+          generateTitle: Generate new
+          generateTimeout: 1000
           baseUrl: api/v1
+          type: epList
+          height: 500
           columns:
             -
               display: ID
@@ -25,26 +35,12 @@ dashboards:
             -
               display: Created
               path: createdDate
-          displayTitle: true
-          generate: true
-          generateTimeout: 1000
-          generateTitle: "Generate new"
-          height: 500
           itemLink:
+            path: "/gizmo/{gizmo_id}"
             parameters:
-              -
                 itemJsonPath: "widgetConfig.columns[0].display"
                 name: gizmo_id
-                type: path
-            path: "/gizmo/{gizmo_id}"
           metadata: metadata
-          name: sensorDevices.json
-          service: API_EPR
-          type: EPList
-          title: Gizmo list
-        height: 500
-        percentWidth: 100
-        type: EPList
       -
         config:
           applicationName: gizmo
@@ -319,4 +315,4 @@ dashboards:
 info:
   logo: "http://some_path"
   theme: night
-title: MyCompany
+  title: MyCompany
