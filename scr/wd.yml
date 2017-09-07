@@ -91,7 +91,7 @@ dashboards:
           fields:
             -
               dataType: string
-              displayName: "Token"
+              displayName: "Endpoint token"
               isEditable: false
               name: token
               section: metadata
