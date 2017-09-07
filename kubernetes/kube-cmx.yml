@@ -1,0 +1,92 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmx-service
+  labels:
+    app: cmx-service
+    tier: backend
+spec:
+  type: "LoadBalancer"
+  ports:
+  - port: 30790
+    targetPort: 30790
+    nodePort: 30790
+    name: cmx
+  selector:
+    app: cmx-service
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmx-service
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmx-service
+        tier: backend
+    spec:
+      imagePullSecrets:
+        - name: hub-deploy
+      containers:
+      - name: cmx-service
+        image: hub.kaaiot.io/kaaiot/cmx/cmx-service:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
+        terminationMessagePolicy: FallbackToLogsOnError
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: cmx-port
+          initialDelaySeconds: 150
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: cmx-port
+          initialDelaySeconds: 1
+          periodSeconds: 1
+        volumeMounts:
+          - mountPath: /usr/lib/cmx-service/conf/
+            name: cmx-conf-volume
+        resources:
+          requests:
+            memory: 350Mi
+          limits:
+            memory: 1Gi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: INSTANCE_NAME
+          value: cmx
+        - name: CR_INSTANCE_NAME
+          value: ecr
+        - name: KPC_INSTANCE_NAME
+          value: kpc
+        - name: NATS_HOST_PORT
+          value: nats://nats-service.default.svc.cluster.local:4222
+        - name: APP_CONFIG_PATH
+          value: /usr/lib/cmx-service/conf/app/app-config.yml
+        - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
+          value: "120"
+        - name: JAVA_OPTIONS
+          value: -Xmx700m
+        - name: CONFIG_REPOSITORY_SERVICE_URL
+          value: "http://scr-service.default.svc.cluster.local:30770"
+        - name: JMX_PORT
+          value: "30791"
+        - name: JMX_MONITOR_USER_PASSWORD
+          value: monitor
+        ports:
+        - name: cmx-port
+          containerPort: 30790
+        - name: jmx-port
+          containerPort: 30791
+      volumes:
+        - name: cmx-conf-volume
+          hostPath:
+            path: /usr/lib/cmx-service/conf
+
