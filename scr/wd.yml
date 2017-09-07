@@ -95,42 +95,6 @@ dashboards:
               isEditable: false
               name: token
               section: metadata
-            -
-              dataType: string
-              displayName: "MAC address"
-              isEditable: false
-              name: mac
-              section: metadata
-            -
-              dataType: string
-              displayName: "Location Name"
-              isEditable: false
-              name: location
-              section: metadata
-            -
-              dataType: string
-              displayName: Latitude
-              isEditable: false
-              name: latitude
-              section: metadata
-            -
-              dataType: string
-              displayName: Longitude
-              isEditable: false
-              name: longitude
-              section: metadata
-            -
-              dataType: string
-              displayName: "Firmware version"
-              isEditable: false
-              name: fwVersion
-              section: metadata
-            -
-              dataType: string
-              displayName: "Hardware version"
-              isEditable: false
-              name: hwVersion
-              section: metadata
           service: API_EPR
           type: metadata
           title: Metadata
