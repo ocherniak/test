@@ -101,7 +101,7 @@ dashboards:
         height: 350
         percentWidth: 100
 
-      - percentWidth: 33.33
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -124,7 +124,22 @@ dashboards:
             - name: endpointId
               itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value1
-      - percentWidth: 33.33
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value1 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value1
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -230,20 +245,7 @@ dashboards:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value5
-      -
-        height: 500
-        percentWidth: 100
-        config:
-          title: "value1 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value1
-            endpoints: '${dashboard.id}'
+
       -
         height: 500
         percentWidth: 100
