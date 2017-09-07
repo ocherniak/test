@@ -165,7 +165,23 @@ dashboards:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value2
-      - percentWidth: 33.33
+
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value2 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value2
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -191,7 +207,23 @@ dashboards:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value3
-      - percentWidth: 33.33
+
+      -
+        height: 500
+        percentWidth: 100
+        config:
+          title: "value3 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value3
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -218,7 +250,23 @@ dashboards:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value4
-      - percentWidth: 33.33
+
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value4 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value4
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -248,49 +296,7 @@ dashboards:
 
       -
         height: 500
-        percentWidth: 100
-        config:
-          title: "value2 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value2
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
-        config:
-          title: "value3 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value3
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
-        config:
-          title: "value4 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value4
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
+        percentWidth: 80
         config:
           title: "value5 history"
           baseUrl: api/v1
