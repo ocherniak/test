@@ -210,7 +210,7 @@ dashboards:
 
       -
         height: 500
-        percentWidth: 100
+        percentWidth: 80
         config:
           title: "value3 history"
           baseUrl: api/v1
