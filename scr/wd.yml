@@ -155,7 +155,6 @@ dashboards:
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
-          displayPostfix: °C
           timeSeriesParams:
             - name: endpointId
               itemJsonPath: dashboardRouteParams.id
@@ -181,7 +180,6 @@ dashboards:
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
-          displayPostfix: °C
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
@@ -207,7 +205,6 @@ dashboards:
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
-          displayPostfix: "°C"
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
@@ -234,7 +231,6 @@ dashboards:
           emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
-          displayPostfix: "°C"
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
@@ -261,7 +257,6 @@ dashboards:
           emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
-          displayPostfix: "°C"
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
