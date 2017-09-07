@@ -39,6 +39,30 @@ dashboards:
           service: API_EPTS
           meta_service: API_EPR
       -
+        height: 600
+        percentWidth: 100
+        config:
+          type: EPLocation
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          title: Gizmo historical location
+          endpointId: endpointId
+          baseUrl: api/v1
+          markerIcon: null
+          showDirection: true
+          deviceName: Gizmo
+          POLLING_TIMEOUT: 10000
+          itemLink:
+            path: /gizmo/{gizmo_id}
+            parameters:
+              name: gizmo_id
+              itemJsonPath: widgetConfig.endpointId
+#          endpoints: "${dashboard.deviceId}"
+          historical: true
+          timeSeriesName: location
+          displayTitle: true
+          service: API_EPTS
+          meta_service: API_EPR
+      -
         height: 500
         percentWidth: 100
         config:
