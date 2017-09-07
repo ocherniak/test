@@ -14,7 +14,7 @@ fi
 
 kubectl $1 -f kubernetes/kube-nats.yml
 
-kubectl $1 -f kubernetes/kube-scr-loc.yml
+kubectl $1 -f kubernetes/kube-scr.yml
 kubectl $1 -f kubernetes/kube-kpc.yml
 kubectl $1 -f kubernetes/kube-cm.yml
 kubectl $1 -f kubernetes/kube-epr.yml
