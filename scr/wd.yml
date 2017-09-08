@@ -155,10 +155,9 @@ dashboards:
           type: configuration
           title: Configuration
           applicationVersionName: gizmo_v1
-          path: config
+          path: configId
         height: 350
         percentWidth: 50
-
 
       - percentWidth: 20
         height: 500
