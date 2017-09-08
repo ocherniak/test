@@ -156,12 +156,6 @@ dashboards:
           title: Configuration
           applicationVersionName: gizmo_v1
           path: textConfig
-          fields:
-            -
-              dataType: string
-              displayName: "Endpoint token"
-              isEditable: false
-              name: textConfig
         type: configuration
         height: 350
         percentWidth: 50
