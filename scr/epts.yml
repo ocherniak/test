@@ -12,7 +12,7 @@ applications:
   - name: value5
     value-field: value5
   - name: location
-    value-field: value1
+    value-field: speed
     tag-fields: latitude,longitude
   versions:
   - name: gizmo_v1
