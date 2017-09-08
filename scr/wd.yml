@@ -164,25 +164,30 @@ dashboards:
         height: 500
         config:
           displayTitle: true
-          title: value1
+          title: Radial Gauge
           type: gauge
           service: API_EPTS
           baseUrl: api/v1
           dataPath: value
-          skin: HorizontalBottom
+          skin: RadialBar350
           ranges:
-            min: 25
-            max: 26.5
-            step: 0.25
+            min: 0
+            max: 40
+            step: 5
+            lowCritical: 15
+            lowWarning: 20
+            highWarning: 30
+            highCritical: 35
           updateInterval: 3
-          emptyQueriesMax: 0
+          emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
           displayPostfix: ""
           timeSeriesParams:
-            - name: endpointId
-              itemJsonPath: dashboardRouteParams.id
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value1
+
       -
         height: 500
         percentWidth: 80
