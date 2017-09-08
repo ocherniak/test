@@ -15,9 +15,58 @@ dashboards:
     title: Gizmo
     widgets:
       -
+        height: 600
+        percentWidth: 100
+        config:
+          type: EPLocation
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          title: Gizmo location
+          endpointId: endpointId
+          baseUrl: api/v1
+          markerIcon: null
+          showDirection: true
+          deviceName: Gizmo
+          POLLING_TIMEOUT: 500
+          itemLink:
+            path: /gizmo/{gizmo_id}
+            parameters:
+              name: gizmo_id
+              itemJsonPath: widgetConfig.endpointId
+#          endpoints: "${dashboard.deviceId}"
+          historical: false
+          timeSeriesName: location
+          displayTitle: true
+          service: API_EPTS
+          meta_service: API_EPR
+      -
+        height: 600
+        percentWidth: 100
+        config:
+          type: EPLocation
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          title: Gizmo historical location
+          endpointId: endpointId
+          baseUrl: api/v1
+          markerIcon: null
+          showDirection: true
+          deviceName: Gizmo
+          POLLING_TIMEOUT: 500
+          itemLink:
+            path: /gizmo/{gizmo_id}
+            parameters:
+              name: gizmo_id
+              itemJsonPath: widgetConfig.endpointId
+#          endpoints: "${dashboard.deviceId}"
+          historical: true
+          timeSeriesName: location
+          displayTitle: true
+          service: API_EPTS
+          meta_service: API_EPR
+      -
         height: 500
         percentWidth: 100
         config:
+          type: epList
           displayTitle: true
           title: Gizmo list
           applicationName: gizmo
@@ -26,7 +75,6 @@ dashboards:
           generateTitle: Generate new
           generateTimeout: 1000
           baseUrl: api/v1
-          type: epList
           height: 500
           columns:
             -
@@ -86,24 +134,22 @@ dashboards:
     widgets:
       -
         config:
-          allEditable: true
           allFields: true
           baseUrl: api/v1
           fields:
             -
               dataType: string
-              displayName: "Rule name"
+              displayName: "Endpoint token"
               isEditable: false
-              path: metadata
-              regexName: .*
+              name: token
               section: metadata
-          height: 500
           service: API_EPR
           type: metadata
-          title: Rules
-        height: 500
-        percentWidth: 60
-      - percentWidth: 33.33
+          title: Metadata
+        height: 350
+        percentWidth: 100
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -121,12 +167,27 @@ dashboards:
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
-          displayPostfix: °C
+          displayPostfix: ""
           timeSeriesParams:
             - name: endpointId
               itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value1
-      - percentWidth: 33.33
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value1 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value1
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -147,12 +208,28 @@ dashboards:
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
-          displayPostfix: °C
+          displayPostfix: ""
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value2
-      - percentWidth: 33.33
+
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value2 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value2
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -173,12 +250,28 @@ dashboards:
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
-          displayPostfix: "°C"
+          displayPostfix: ""
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value3
-      - percentWidth: 33.33
+
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value3 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value3
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -200,12 +293,28 @@ dashboards:
           emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
-          displayPostfix: "°C"
+          displayPostfix: ""
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value4
-      - percentWidth: 33.33
+
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value4 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value4
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
         height: 500
         config:
           displayTitle: true
@@ -227,70 +336,15 @@ dashboards:
           emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
-          displayPostfix: "°C"
+          displayPostfix: ""
           timeSeriesParams:
           - name: endpointId
             itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value5
+
       -
         height: 500
-        percentWidth: 100
-        config:
-          title: "value1 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value1
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
-        config:
-          title: "value2 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value2
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
-        config:
-          title: "value3 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value3
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
-        config:
-          title: "value4 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value4
-            endpoints: '${dashboard.id}'
-      -
-        height: 500
-        percentWidth: 100
+        percentWidth: 80
         config:
           title: "value5 history"
           baseUrl: api/v1

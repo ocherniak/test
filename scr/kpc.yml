@@ -8,3 +8,5 @@ applications:
       endpointAware: true
     - name: epmx
       endpointAware: true
+    - name: cmx
+      endpointAware: true
