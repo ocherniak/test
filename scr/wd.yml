@@ -147,7 +147,18 @@ dashboards:
           type: metadata
           title: Metadata
         height: 350
-        percentWidth: 100
+        percentWidth: 50
+      -
+        config:
+          service: API_ECR
+          baseUrl: api/v1
+          type: configuration
+          title: Configuration
+          applicationVersionName: gizmo_v1
+          path: config
+        height: 350
+        percentWidth: 50
+
 
       - percentWidth: 20
         height: 500
