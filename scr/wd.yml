@@ -145,7 +145,7 @@ dashboards:
               section: metadata
           service: API_EPR
           type: metadata
-          title: Metadata
+          title: Gizmo attributes
         height: 350
         percentWidth: 50
       -

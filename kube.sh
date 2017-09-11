@@ -59,9 +59,13 @@ function usage {
 
 case "$cmd" in
   create)
+    kubectl create -f kubernetes/configmaps/scr-url-config.yml
+    kubectl create -f kubernetes/configmaps/general-services-config.yml
     services_cmd create "$@"
     ;;
   delete)
+    kubectl delete -f kubernetes/configmaps/scr-url-config.yml
+    kubectl delete -f kubernetes/configmaps/general-services-config.yml
     services_cmd delete "$@"
     ;;
   recreate)
