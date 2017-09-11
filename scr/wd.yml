@@ -164,7 +164,7 @@ dashboards:
         height: 500
         config:
           displayTitle: true
-          title: Radial Gauge
+          title: value1
           type: gauge
           service: API_EPTS
           baseUrl: api/v1
