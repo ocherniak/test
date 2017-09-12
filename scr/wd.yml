@@ -36,8 +36,9 @@ dashboards:
           historical: false
           timeSeriesName: location
           displayTitle: true
-          service: API_EPTS
-          meta_service: API_EPR
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
       -
         height: 600
         percentWidth: 100
@@ -60,8 +61,9 @@ dashboards:
           historical: true
           timeSeriesName: location
           displayTitle: true
-          service: API_EPTS
-          meta_service: API_EPR
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
       -
         height: 500
         percentWidth: 100
