@@ -15,33 +15,6 @@ dashboards:
     title: Gizmo
     widgets:
       -
-        height: 700
-        percentWidth: 100
-        config:
-          type: EPLocation
-          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          title: Gizmo location
-          displayTitle: true
-          endpointId: endpointId
-          serviceName: API_EPTS
-          serviceType: EPTS
-          serviceMeta: API_EPR
-          lat: tags.latitude
-          lon: tags.longitude
-          applicationVersionName: gizmo_v1
-          baseUrl: api/v1
-          markerIcon: null
-          showDirection: true
-          deviceName: Gizmo
-          POLLING_TIMEOUT: 500
-          itemLink:
-            path: /gizmo/{gizmo_id}
-            parameters:
-              name: gizmo_id
-              itemJsonPath: widgetConfig.endpointId
-          historical: false
-          timeSeriesName: location
-      -
         height: 500
         percentWidth: 100
         config:
@@ -111,6 +84,33 @@ dashboards:
     isTopLevel: false
     path: "/gizmo/:id"
     widgets:
+      -
+        height: 700
+        percentWidth: 100
+        config:
+          type: EPLocation
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          title: Gizmo location
+          displayTitle: true
+          endpointId: endpointId
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
+          lat: tags.latitude
+          lon: tags.longitude
+          applicationVersionName: gizmo_v1
+          baseUrl: api/v1
+          markerIcon: null
+          showDirection: true
+          deviceName: Gizmo
+          POLLING_TIMEOUT: 500
+          itemLink:
+            path: /gizmo/{gizmo_id}
+            parameters:
+              name: gizmo_id
+              itemJsonPath: widgetConfig.endpointId
+          historical: false
+          timeSeriesName: location
       -
         height: 700
         percentWidth: 100
