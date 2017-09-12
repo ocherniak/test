@@ -164,12 +164,54 @@ dashboards:
         height: 500
         config:
           displayTitle: true
-          title: value2
+          title: value1
           type: gauge
           service: API_EPTS
           baseUrl: api/v1
           dataPath: value
           skin: HorizontalBar
+          ranges:
+            min: 25
+            max: 26.5
+            lowCritical: 25.2
+            lowWarning: 25.4
+            highWarning: 26.1
+            highCritical: 26.3
+          updateInterval: 3
+          emptyQueriesMax: 0
+          timeSegment: 5
+          displayScale: 3
+          displayPostfix: ""
+          timeSeriesParams:
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
+          timeSeriesName: value1
+
+      -
+        height: 500
+        percentWidth: 80
+        config:
+          title: "value1 history"
+          baseUrl: api/v1
+          displayTitle: true
+          limit: 1000
+          service: API_EPTS
+          type: multiSeriesChart
+          dataSource:
+            timeSeries:
+              name: value1
+            endpoints: '${dashboard.id}'
+
+      - percentWidth: 20
+        height: 500
+        config:
+          displayTitle: true
+          title: value2
+          type: gauge
+          service: API_EPTS
+          baseUrl: api/v1
+          dataPath: value
+          skin: HorizontalArrow
           ranges:
             min: 25
             max: 26.5
@@ -211,16 +253,17 @@ dashboards:
           service: API_EPTS
           baseUrl: api/v1
           dataPath: value
-          skin: HorizontalArrow
+          skin: RadialBar350
           ranges:
-            min: 25
-            max: 26.5
-            lowCritical: 25.2
-            lowWarning: 25.4
-            highWarning: 26.1
-            highCritical: 26.3
+            min: 0
+            max: 40
+            step: 5
+            lowCritical: 15
+            lowWarning: 20
+            highWarning: 30
+            highCritical: 35
           updateInterval: 3
-          emptyQueriesMax: 0
+          emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
           displayPostfix: ""
@@ -242,48 +285,6 @@ dashboards:
           dataSource:
             timeSeries:
               name: value3
-            endpoints: '${dashboard.id}'
-      - percentWidth: 20
-        height: 500
-        config:
-          displayTitle: true
-          title: value1
-          type: gauge
-          service: API_EPTS
-          baseUrl: api/v1
-          dataPath: value
-          skin: RadialBar350
-          ranges:
-            min: 0
-            max: 40
-            step: 5
-            lowCritical: 15
-            lowWarning: 20
-            highWarning: 30
-            highCritical: 35
-          updateInterval: 3
-          emptyQueriesMax: 3
-          timeSegment: 5
-          displayScale: 3
-          displayPostfix: ""
-          timeSeriesParams:
-          - name: endpointId
-            itemJsonPath: dashboardRouteParams.id
-          timeSeriesName: value1
-
-      -
-        height: 500
-        percentWidth: 80
-        config:
-          title: "value1 history"
-          baseUrl: api/v1
-          displayTitle: true
-          limit: 1000
-          service: API_EPTS
-          type: multiSeriesChart
-          dataSource:
-            timeSeries:
-              name: value1
             endpoints: '${dashboard.id}'
 
 
