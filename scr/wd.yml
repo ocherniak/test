@@ -23,6 +23,8 @@ dashboards:
           title: Gizmo location
           endpointId: endpointId
           baseUrl: api/v1
+          lat: metadata.latitude
+          lon: metadata.longtitude
           markerIcon: null
           showDirection: true
           deviceName: Gizmo
