@@ -84,36 +84,14 @@ dashboards:
     isTopLevel: false
     path: "/gizmo/:id"
     widgets:
-      -
-        height: 700
-        percentWidth: 100
-        config:
-          type: EPLocation
-          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          title: Gizmo location
-          displayTitle: true
-          endpointId: endpointId
-          serviceName: API_EPTS
-          serviceType: EPTS
-          serviceMeta: API_EPR
-          timeSeriesName: location
-          lat: tags.latitude
-          lon: tags.longitude
-          applicationVersionName: gizmo_v1
-          baseUrl: api/v1
-          markerIcon: null
-          showDirection: true
-          deviceName: Gizmo
-          POLLING_TIMEOUT: 500
-          historical: false
 #      -
 #        height: 700
 #        percentWidth: 100
 #        config:
 #          type: EPLocation
-#          title: Gizmo historical location
-#          displayTitle: true
 #          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+#          title: Gizmo location
+#          displayTitle: true
 #          endpointId: endpointId
 #          serviceName: API_EPTS
 #          serviceType: EPTS
@@ -121,12 +99,34 @@ dashboards:
 #          timeSeriesName: location
 #          lat: tags.latitude
 #          lon: tags.longitude
+#          applicationVersionName: gizmo_v1
 #          baseUrl: api/v1
 #          markerIcon: null
 #          showDirection: true
 #          deviceName: Gizmo
 #          POLLING_TIMEOUT: 500
-#          historical: true
+#          historical: false
+      -
+        height: 700
+        percentWidth: 100
+        config:
+          type: EPLocation
+          title: Gizmo historical location
+          displayTitle: true
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          endpointId: endpointId
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
+          timeSeriesName: location
+          lat: tags.latitude
+          lon: tags.longitude
+          baseUrl: api/v1
+          markerIcon: null
+          showDirection: true
+          deviceName: Gizmo
+          POLLING_TIMEOUT: 500
+          historical: true
       -
         config:
           allFields: true
