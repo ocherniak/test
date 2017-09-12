@@ -69,8 +69,7 @@ spec:
         - name : PRIVATE_DNS_HOST
           value: "10.2.2.45" #cybervision dns
         - name: CONFIGURATION_REPOSITORY_URL
-#          value: https://gitlab.kaaiot.io/evangelism/solutions/gizmo/blueprint.git
-          value: https://ocherniak@gitlab.kaaiot.io/evangelism/solutions/gizmo/blueprint.git
+          value: https://gitlab.kaaiot.io/evangelism/solutions/gizmo/blueprint.git
         - name: CONFIGURATION_REPOSITORY_USERNAME
           value: "webui-test"
         - name: CONFIGURATION_REPOSITORY_PASSWORD
