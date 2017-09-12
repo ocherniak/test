@@ -132,6 +132,8 @@ dashboards:
           historical: true
           timeSeriesName: location
           displayTitle: true
+          lat: tags.latitude
+          lon: tags.longitude
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
