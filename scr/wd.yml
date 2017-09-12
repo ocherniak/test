@@ -24,7 +24,7 @@ dashboards:
           displayTitle: true
           endpointId: endpointId
           serviceName: API_EPTS
-          serviceType: EPTS
+          serviceType: EPR
           serviceMeta: API_EPR
           applicationVersionName: gizmo_v1
           baseUrl: api/v1
