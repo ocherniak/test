@@ -129,8 +129,9 @@ dashboards:
           historical: true
           timeSeriesName: location
           displayTitle: true
-          service: API_EPTS
-          meta_service: API_EPR
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
       -
         config:
           allFields: true
