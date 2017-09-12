@@ -8,7 +8,21 @@ data:
   username:
   password:
 ---
+# It's possible to crete ConfigMap from template described below
+# or using `kubectl create configmap <map-name> --from-file=<key-name>=<path-to-file>` command
+# Use `epr-service-config` as a map name and `epr-config` as a key name.
+# Example command: `kubectl create configmap epr-service-config --from-file=epr-config=/srv/epr/service-config.yml`
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: epr-service-config
+#  labels:
+#    name: epr-service-config
+#data:
+#  epr-config: |
+#    # Add service configuration here
 
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,7 +46,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: epr-service
-  namespace: default
 spec:
   replicas: 1
   template:
@@ -60,23 +73,22 @@ spec:
             port: epr-port
           initialDelaySeconds: 1
           periodSeconds: 1
-        volumeMounts:
-          - mountPath: /epr-conf/app
-            name: epr-app-conf-volume
+#        volumeMounts:
+#          - name: epr-conf-volume
+#            mountPath: /srv/epr/
         resources:
           requests:
             memory: 350Mi
           limits:
             memory: 1Gi
+        envFrom:
+        - configMapRef:
+            name: general-services-config
         env:
-        - name: GET_HOSTS_FROM
-          value: dns
-        - name: NATS_HOST_PORT
-          value: nats://nats-service.default.svc.cluster.local:4222
         - name: MONGO_DATABASE
           value: epr_service
         - name: MONGO_HOST
-          value: mongo.default.svc.cluster.local
+          value: mongo.$(NAMESPACE_NAME).svc.cluster.local
         - name: MONGO_USERNAME
           valueFrom:
             secretKeyRef:
@@ -105,22 +117,26 @@ spec:
           value: epr
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
           value: "120"    # -1 means unlimited timeout
-        - name: APP_CONFIG_PATH
-          value: /epr-conf/app/app-config.yml
+#        - name: APP_CONFIG_PATH
+#          value: /srv/epr/service-config.yml
         - name: JAVA_OPTIONS
           value: -Xmx700m
         - name: CONFIG_REPOSITORY_SERVICE_URL
-          value: "http://scr-service.default.svc.cluster.local:30770"
+          valueFrom:
+            configMapKeyRef:
+              name: scr-url-config
+              key: scr-url
         - name: JMX_PORT
           value: "30751"
-        - name: JMX_MONITOR_USER_PASSWORD
-          value: monitor
         ports:
         - name: epr-port
           containerPort: 30750
         - name: jmx-port
           containerPort: 30751
-      volumes:
-        - name: epr-app-conf-volume
-          hostPath:
-            path: /usr/lib/epr-service/conf/app
+#      volumes:
+#        - name: epr-conf-volume
+#          configMap:
+#            name: epr-service-config
+#            items:
+#            - key: epr-config
+#              path: service-config.yml
