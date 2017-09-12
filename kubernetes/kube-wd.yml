@@ -50,7 +50,8 @@ spec:
         - name: CONFIG_REPOSITORY_SERVICE_URL
           value: "http://scr-service.default.svc.cluster.local:30770"
         - name: REPOSITORY_BRANCH_NAME
-          value: "master"
+          value: "test-branch"
+#          value: "master"
         - name: NATS_HOST_PORT
           value: nats://nats-service.default.svc.cluster.local:4222
         - name: SERVICE_INSTANCE_NAME

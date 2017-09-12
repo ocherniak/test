@@ -1,5 +1,7 @@
 #!/bin/bash
 
+configmaps_dir="kubernetes/configmaps"
+configmaps_filter="*configmap.yml"
 services_dir="kubernetes"
 services_filter="kube-*.yml"
 
@@ -7,6 +9,12 @@ cmd=$1; shift
 
 function get_services {
   for file in ${services_dir}/${services_filter}; do
+    echo -n "$file "
+  done
+}
+
+function get_configmaps {
+  for file in ${configmaps_dir}/${configmaps_filter}; do
     echo -n "$file "
   done
 }
@@ -36,6 +44,25 @@ function services_cmd {
   done
 }
 
+function configmaps_cmd {
+  local cmd="$1"; shift
+  local maps_list="$1"; shift
+
+  if [ "X" = "X${maps_list}" ]; then
+    maps_list=$(get_configmaps)
+  fi
+
+  for map in ${maps_list}; do
+    kubectl_cmd "${cmd}" "${map}"
+    if [ $? -ne 0 ]; then
+      echo "ERROR: Operation FAILED"
+    else
+      echo ""
+    fi
+  done
+
+}
+
 function usage {
   echo "Usage:"
   echo "$1 <command> [<service_file> [<service_file>] ...]"
@@ -59,13 +86,12 @@ function usage {
 
 case "$cmd" in
   create)
-    kubectl create -f kubernetes/configmaps/scr-url-config.yml
-    kubectl create -f kubernetes/configmaps/general-services-config.yml
+    configmaps_cmd create "$@"
     services_cmd create "$@"
     ;;
   delete)
-    kubectl delete -f kubernetes/configmaps/scr-url-config.yml
-    kubectl delete -f kubernetes/configmaps/general-services-config.yml
+
+    configmaps_cmd delete "$@"
     services_cmd delete "$@"
     ;;
   recreate)
