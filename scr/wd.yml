@@ -96,6 +96,7 @@ dashboards:
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
+          timeSeriesName: location
           lat: tags.latitude
           lon: tags.longitude
           applicationVersionName: gizmo_v1
@@ -104,39 +105,28 @@ dashboards:
           showDirection: true
           deviceName: Gizmo
           POLLING_TIMEOUT: 500
-          itemLink:
-            path: /gizmo/{gizmo_id}
-            parameters:
-              name: gizmo_id
-              itemJsonPath: widgetConfig.endpointId
           historical: false
-          timeSeriesName: location
       -
         height: 700
         percentWidth: 100
         config:
           type: EPLocation
-          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           title: Gizmo historical location
+          displayTitle: true
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           endpointId: endpointId
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
+          timeSeriesName: location
+          lat: tags.latitude
+          lon: tags.longitude
           baseUrl: api/v1
           markerIcon: null
           showDirection: true
           deviceName: Gizmo
           POLLING_TIMEOUT: 500
-          itemLink:
-            path: /gizmo/{gizmo_id}
-            parameters:
-              name: gizmo_id
-              itemJsonPath: widgetConfig.endpointId
           historical: true
-          timeSeriesName: location
-          displayTitle: true
-          lat: tags.latitude
-          lon: tags.longitude
-          serviceName: API_EPTS
-          serviceType: EPTS
-          serviceMeta: API_EPR
       -
         config:
           allFields: true
