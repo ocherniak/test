@@ -26,8 +26,8 @@ dashboards:
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
-          lat: metadata.latitude
-          lon: metadata.longitude
+          lat: tags.latitude
+          lon: tags.longitude
           applicationVersionName: gizmo_v1
           baseUrl: api/v1
           markerIcon: null
