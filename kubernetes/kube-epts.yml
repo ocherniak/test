@@ -13,10 +13,6 @@ spec:
     targetPort: 30740
     nodePort: 30740
     name: epts
-  - port: 30742
-    targetPort: 30742
-    nodePort: 30742
-    name: debug
   selector:
     app: epts-service
     tier: backend
@@ -63,7 +59,7 @@ spec:
         - name: APP_CONFIG_PATH
           value: /usr/lib/epts-service/conf/app/app-config.yml
         - name: JAVA_OPTIONS
-          value: -Xmx700m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=30742
+          value: -Xmx700m
         - name: JMX_PORT
           value: "30741"
         - name: JMX_MONITOR_USER_PASSWORD
@@ -75,8 +71,6 @@ spec:
           containerPort: 30740
         - name: jmx-port
           containerPort: 30741
-        - name: debug-port
-          containerPort: 30742
         livenessProbe:
           httpGet:
             path: /health
