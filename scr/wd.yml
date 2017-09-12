@@ -21,10 +21,31 @@ dashboards:
           type: EPLocation
           urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           title: Gizmo location
+          displayTitle: true
           endpointId: endpointId
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
+          applicationVersionName: gizmo_v1
           baseUrl: api/v1
           lat: metadata.latitude
-          lon: metadata.longtitude
+          lon: metadata.longitude
+          markerCard:
+            - tag: "endpointId"
+              label: Name
+            - tag: "createdDate"
+              label: "Created at"
+            - tag: "metadata.location"
+              label: "Location"
+            - tag: "metadata.mac"
+              label: "Mac Adress"
+            - tag: "metadata.serial"
+              label: "Serial Number"
+          locationCard:
+            - tag: "endpointId"
+              label: Name
+            - tag: "createdDate"
+              label: "Created at"
           markerIcon: null
           showDirection: true
           deviceName: Gizmo
@@ -36,10 +57,6 @@ dashboards:
               itemJsonPath: widgetConfig.endpointId
           historical: false
           timeSeriesName: location
-          displayTitle: true
-          serviceName: API_EPTS
-          serviceType: EPTS
-          serviceMeta: API_EPR
       -
         height: 500
         percentWidth: 100
