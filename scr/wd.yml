@@ -28,24 +28,6 @@ dashboards:
           serviceMeta: API_EPR
           applicationVersionName: gizmo_v1
           baseUrl: api/v1
-          lat: metadata.latitude
-          lon: metadata.longitude
-          markerCard:
-            - tag: "endpointId"
-              label: Name
-            - tag: "createdDate"
-              label: "Created at"
-            - tag: "metadata.location"
-              label: "Location"
-            - tag: "metadata.mac"
-              label: "Mac Adress"
-            - tag: "metadata.serial"
-              label: "Serial Number"
-          locationCard:
-            - tag: "endpointId"
-              label: Name
-            - tag: "createdDate"
-              label: "Created at"
           markerIcon: null
           showDirection: true
           deviceName: Gizmo
