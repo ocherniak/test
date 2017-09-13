@@ -167,11 +167,11 @@ dashboards:
           skin: HorizontalBar
           ranges:
             min: 0
-            max: 1
+            max: 1.1
             lowCritical: 0.1
             lowWarning: 0.2
-            highWarning: 0.8
-            highCritical: 0.9
+            highWarning: 0.9
+            highCritical: 1
           updateInterval: 3
           emptyQueriesMax: 0
           timeSegment: 5
@@ -208,12 +208,12 @@ dashboards:
           dataPath: value
           skin: HorizontalArrow
           ranges:
-            min: 25
-            max: 26.5
-            lowCritical: 25.2
-            lowWarning: 25.4
-            highWarning: 26.1
-            highCritical: 26.3
+            min: 0
+            max: 1.1
+            lowCritical: 0.1
+            lowWarning: 0.2
+            highWarning: 0.9
+            highCritical: 1
           updateInterval: 3
           emptyQueriesMax: 0
           timeSegment: 5
@@ -251,12 +251,12 @@ dashboards:
           skin: RadialBar350
           ranges:
             min: 0
-            max: 40
-            step: 5
-            lowCritical: 15
-            lowWarning: 20
-            highWarning: 30
-            highCritical: 35
+            max: 1.1
+            lowCritical: 0.1
+            lowWarning: 0.2
+            highWarning: 0.9
+            highCritical: 1
+            step: 0.1
           updateInterval: 3
           emptyQueriesMax: 3
           timeSegment: 5
@@ -295,12 +295,12 @@ dashboards:
           skin: RadialModernBorder180
           ranges:
             min: 0
-            max: 40
-            step: 5
-            lowCritical: 15
-            lowWarning: 20
-            highWarning: 30
-            highCritical: 35
+            max: 1.1
+            lowCritical: 0.1
+            lowWarning: 0.2
+            highWarning: 0.9
+            highCritical: 1
+            step: 0.1
           updateInterval: 3
           emptyQueriesMax: 3
           timeSegment: 5
@@ -338,12 +338,12 @@ dashboards:
           skin: RadialModernBorder270
           ranges:
             min: 0
-            max: 40
-            step: 5
-            lowCritical: 15
-            lowWarning: 20
-            highWarning: 30
-            highCritical: 35
+            max: 1.1
+            lowCritical: 0.1
+            lowWarning: 0.2
+            highWarning: 0.9
+            highCritical: 1
+            step: 0.1
           updateInterval: 3
           emptyQueriesMax: 3
           timeSegment: 5
