@@ -13,10 +13,6 @@ spec:
     targetPort: 30740
     nodePort: 30740
     name: epts
-  - port: 30742
-    targetPort: 30742
-    nodePort: 30742
-    name: debug
   selector:
     app: epts-service
     tier: backend

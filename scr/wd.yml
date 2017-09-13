@@ -166,12 +166,12 @@ dashboards:
           dataPath: value
           skin: HorizontalBar
           ranges:
-            min: 25
-            max: 26.5
-            lowCritical: 25.2
-            lowWarning: 25.4
-            highWarning: 26.1
-            highCritical: 26.3
+            min: 0
+            max: 1
+            lowCritical: 0.1
+            lowWarning: 0.2
+            highWarning: 0.8
+            highCritical: 0.9
           updateInterval: 3
           emptyQueriesMax: 0
           timeSegment: 5
