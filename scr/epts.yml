@@ -15,8 +15,8 @@ applications:
     value-field: speed
     tag-fields: latitude,longitude
   - name: logs
-    value-field: message
-    tag-fields: logLevel
+    value-field: logNumber
+    tag-fields: logLevel, message
   versions:
   - name: gizmo_v1
     number: 1
