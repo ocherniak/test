@@ -154,11 +154,11 @@ dashboards:
           applicationVersionName: gizmo_v1
           path: textConfig
 
-      - percentWidth: 60
+      - percentWidth: 100
         height: 500
         config:
           displayTitle: true
-          title: Telemetry
+          title: Gizmo logs
           type: rawTelemetry
           service: API_EPTS
           baseUrl: api/v1
