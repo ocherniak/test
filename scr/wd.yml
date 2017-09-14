@@ -15,29 +15,6 @@ dashboards:
     title: Gizmo
     widgets:
       -
-        height: 700
-        percentWidth: 100
-        config:
-          type: EPLocation
-          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          title: Gizmo location
-          endpointId: endpointId
-          baseUrl: api/v1
-          markerIcon: null
-          showDirection: true
-          deviceName: Gizmo
-          POLLING_TIMEOUT: 500
-          itemLink:
-            path: /gizmo/{gizmo_id}
-            parameters:
-              name: gizmo_id
-              itemJsonPath: widgetConfig.endpointId
-          historical: false
-          timeSeriesName: location
-          displayTitle: true
-          service: API_EPTS
-          meta_service: API_EPR
-      -
         height: 500
         percentWidth: 100
         config:
@@ -113,23 +90,43 @@ dashboards:
         config:
           type: EPLocation
           urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          title: Gizmo historical location
+          title: Gizmo location
+          displayTitle: true
           endpointId: endpointId
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
+          timeSeriesName: location
+          lat: tags.latitude
+          lon: tags.longitude
+          applicationVersionName: gizmo_v1
           baseUrl: api/v1
           markerIcon: null
           showDirection: true
           deviceName: Gizmo
           POLLING_TIMEOUT: 500
-          itemLink:
-            path: /gizmo/{gizmo_id}
-            parameters:
-              name: gizmo_id
-              itemJsonPath: widgetConfig.endpointId
-          historical: true
-          timeSeriesName: location
+          historical: false
+      -
+        height: 700
+        percentWidth: 100
+        config:
+          type: EPLocation
           displayTitle: true
-          service: API_EPTS
-          meta_service: API_EPR
+          urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          title: Gizmo historical location
+          endpointId: endpointId
+          serviceName: API_EPTS
+          serviceType: EPTS
+          serviceMeta: API_EPR
+          baseUrl: api/v1
+          markerIcon: null
+          showDirection: true
+          deviceName: Gizmo
+          POLLING_TIMEOUT: 500
+          timeSeriesName: location
+          lat: tags.latitude
+          lon: tags.longitude
+          historical: true
       -
         config:
           allFields: true
@@ -143,9 +140,20 @@ dashboards:
               section: metadata
           service: API_EPR
           type: metadata
-          title: Metadata
+          title: Gizmo attributes
         height: 350
-        percentWidth: 100
+        percentWidth: 50
+      -
+        config:
+          service: API_ECR
+          baseUrl: api/v1
+          type: configuration
+          title: Configuration
+          applicationVersionName: gizmo_v1
+          path: textConfig
+        type: configuration
+        height: 350
+        percentWidth: 50
 
       - percentWidth: 20
         height: 500
@@ -156,20 +164,24 @@ dashboards:
           service: API_EPTS
           baseUrl: api/v1
           dataPath: value
-          skin: HorizontalBottom
+          skin: HorizontalBar
           ranges:
             min: 25
             max: 26.5
-            step: 0.25
+            lowCritical: 25.2
+            lowWarning: 25.4
+            highWarning: 26.1
+            highCritical: 26.3
           updateInterval: 3
           emptyQueriesMax: 0
           timeSegment: 5
           displayScale: 3
           displayPostfix: ""
           timeSeriesParams:
-            - name: endpointId
-              itemJsonPath: dashboardRouteParams.id
+          - name: endpointId
+            itemJsonPath: dashboardRouteParams.id
           timeSeriesName: value1
+
       -
         height: 500
         percentWidth: 80
@@ -194,7 +206,7 @@ dashboards:
           service: API_EPTS
           baseUrl: api/v1
           dataPath: value
-          skin: HorizontalBar
+          skin: HorizontalArrow
           ranges:
             min: 25
             max: 26.5
@@ -236,16 +248,17 @@ dashboards:
           service: API_EPTS
           baseUrl: api/v1
           dataPath: value
-          skin: HorizontalArrow
+          skin: RadialBar350
           ranges:
-            min: 25
-            max: 26.5
-            lowCritical: 25.2
-            lowWarning: 25.4
-            highWarning: 26.1
-            highCritical: 26.3
+            min: 0
+            max: 40
+            step: 5
+            lowCritical: 15
+            lowWarning: 20
+            highWarning: 30
+            highCritical: 35
           updateInterval: 3
-          emptyQueriesMax: 0
+          emptyQueriesMax: 3
           timeSegment: 5
           displayScale: 3
           displayPostfix: ""
@@ -268,6 +281,7 @@ dashboards:
             timeSeries:
               name: value3
             endpoints: '${dashboard.id}'
+
 
       - percentWidth: 20
         height: 500
