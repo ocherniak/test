@@ -128,8 +128,13 @@ dashboards:
           lon: tags.longitude
           historical: true
       -
+        height: 350
+        percentWidth: 50
         config:
+          title: Gizmo attributes
+          type: metadata
           allFields: true
+          service: API_EPR
           baseUrl: api/v1
           fields:
             -
@@ -138,12 +143,9 @@ dashboards:
               isEditable: false
               name: token
               section: metadata
-          service: API_EPR
-          type: metadata
-          title: Gizmo attributes
+      -
         height: 350
         percentWidth: 50
-      -
         config:
           service: API_ECR
           baseUrl: api/v1
@@ -151,9 +153,27 @@ dashboards:
           title: Configuration
           applicationVersionName: gizmo_v1
           path: textConfig
-        type: configuration
-        height: 350
-        percentWidth: 50
+
+      - percentWidth: 60
+        height: 500
+        config:
+          displayTitle: true
+          title: Telemetry
+          type: rawTelemetry
+          service: API_EPTS
+          baseUrl: api/v1
+          height: 500
+          maxRecords: 10000
+          columns:
+            - path: ts
+              display: Timestamp
+            - path: value
+              display: Message
+            - path: tags.logLevel
+              display: Log Level
+          dataSource:
+            timeSeries:
+              name: logs
 
       - percentWidth: 20
         height: 500
