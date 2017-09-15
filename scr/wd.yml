@@ -163,9 +163,9 @@ dashboards:
           service: API_EPTS
           baseUrl: api/v1
           height: 500
-          maxRecords: 10000
+          maxRecords: 300
           columns:
-            - path: ts
+            - path: timestamp
               display: Timestamp
             - path: value
               display: Message
