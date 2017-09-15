@@ -152,6 +152,7 @@ dashboards:
           type: configuration
           title: Configuration
           applicationVersionName: gizmo_v1
+          defaultConfig: true
           path: textConfig
 
       - percentWidth: 100
