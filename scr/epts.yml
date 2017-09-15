@@ -14,12 +14,15 @@ applications:
   - name: location
     value-field: speed
     tag-fields: latitude,longitude
+  - name: logs
+    value-field: message
+    tag-fields: logLevel
   versions:
   - name: gizmo_v1
     number: 1
     timestamp:
       path: "$.ts"
-      format: sec-unix-epoch
+      format: mills-unix-epoch
       fallback-strategy: server-timestamp
     preprocessing:
       extraction:
