@@ -224,7 +224,6 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
-            showLast: 3600
             timeSeries:
               name: value1
             endpoints: '${dashboard.id}'
