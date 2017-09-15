@@ -22,7 +22,7 @@ applications:
     number: 1
     timestamp:
       path: "$.ts"
-      format: sec-unix-epoch
+      format: millis-unix-epoch
       fallback-strategy: server-timestamp
     preprocessing:
       extraction:
