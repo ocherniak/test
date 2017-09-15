@@ -67,8 +67,8 @@ dashboards:
             parameters:
                 name: gizmo_id
                 itemJsonPath: "widgetConfig.columns[3].display"
-#          generate: true
-#          generateTimeout: 1000
+          generate: true
+          generateTimeout: 1000
   -
     displayDescription: true
     displayTitle: true
