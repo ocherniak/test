@@ -89,6 +89,7 @@ dashboards:
           title: Gizmo location
           displayTitle: true
           endpointId: endpointId
+          endpoints: dashboardRouteParams.id
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
