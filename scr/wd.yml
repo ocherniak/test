@@ -113,7 +113,6 @@ dashboards:
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
-          endpoints: dashboardRouteParams.id
           baseUrl: api/v1
           markerIcon: null
           showDirection: true
