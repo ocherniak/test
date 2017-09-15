@@ -124,6 +124,7 @@ dashboards:
           urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           title: Gizmo historical location
           endpointId: endpointId
+          endpoints: dashboardRouteParams.id
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
@@ -223,6 +224,7 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
+            showLast: 3600
             timeSeries:
               name: value1
             endpoints: '${dashboard.id}'
