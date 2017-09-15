@@ -67,8 +67,6 @@ dashboards:
             parameters:
                 name: gizmo_id
                 itemJsonPath: "widgetConfig.columns[3].display"
-          generate: true
-          generateTimeout: 1000
   -
     displayDescription: true
     displayTitle: true
@@ -115,6 +113,7 @@ dashboards:
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
+          endpoints: dashboardRouteParams.id
           baseUrl: api/v1
           markerIcon: null
           showDirection: true
