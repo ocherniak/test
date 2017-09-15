@@ -136,7 +136,7 @@ dashboards:
           timeSeriesName: location
           lat: tags.latitude
           lon: tags.longitude
-          historical: true
+          historical: false
       -
         height: 350
         percentWidth: 50
