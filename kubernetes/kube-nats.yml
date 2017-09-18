@@ -7,12 +7,10 @@ metadata:
     app: nats-service
     tier: message-broker
 spec:
-  type: "LoadBalancer"
   ports:
     # the port that this service should serve on
   - port: 4222
     targetPort: 4222
-    nodePort: 31000
     protocol: TCP
     name: clients
   - port: 6222
