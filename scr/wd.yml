@@ -93,8 +93,24 @@ dashboards:
     path: "/gizmo/:id"
     widgets:
       -
+        height: 350
+        percentWidth: 40
+        config:
+          title: Gizmo attributes
+          type: metadata
+          allFields: true
+          service: API_EPR
+          baseUrl: api/v1
+          fields:
+            -
+              dataType: string
+              displayName: "Endpoint token"
+              isEditable: false
+              name: token
+              section: metadata
+      -
         height: 700
-        percentWidth: 100
+        percentWidth: 60
         config:
           type: EPLocation
           urlTemplate: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -116,8 +132,19 @@ dashboards:
           POLLING_TIMEOUT: 500
           historical: false
       -
+        height: 350
+        percentWidth: 40
+        config:
+          service: API_ECR
+          baseUrl: api/v1
+          type: configuration
+          title: Configuration
+          applicationVersionName: gizmo_v1
+          defaultConfig: true
+          path: textConfig
+      -
         height: 700
-        percentWidth: 100
+        percentWidth: 60
         config:
           type: EPLocation
           displayTitle: true
@@ -128,42 +155,15 @@ dashboards:
           serviceName: API_EPTS
           serviceType: EPTS
           serviceMeta: API_EPR
+          lat: tags.latitude
+          lon: tags.longitude
           baseUrl: api/v1
           markerIcon: null
           showDirection: true
           deviceName: Gizmo
           POLLING_TIMEOUT: 500
           timeSeriesName: location
-          lat: tags.latitude
-          lon: tags.longitude
           historical: true
-      -
-        height: 350
-        percentWidth: 50
-        config:
-          title: Gizmo attributes
-          type: metadata
-          allFields: true
-          service: API_EPR
-          baseUrl: api/v1
-          fields:
-            -
-              dataType: string
-              displayName: "Endpoint token"
-              isEditable: false
-              name: token
-              section: metadata
-      -
-        height: 350
-        percentWidth: 50
-        config:
-          service: API_ECR
-          baseUrl: api/v1
-          type: configuration
-          title: Configuration
-          applicationVersionName: gizmo_v1
-          defaultConfig: true
-          path: textConfig
 
       - percentWidth: 100
         height: 500
