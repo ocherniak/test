@@ -143,15 +143,34 @@ dashboards:
         config:
           title: Gizmo attributes
           type: metadata
-          allFields: true
+          allFields: false
           service: API_EPR
           baseUrl: api/v1
           fields:
-            -
+            - name: name
+              displayName: "Application version name"
               dataType: string
-              displayName: "Endpoint token"
               isEditable: false
-              name: token
+              section: metadata
+            - name: registerDate
+              displayName: "Register date"
+              dataType: string
+              isEditable: false
+              section: metadata
+            - name: createdDate
+              displayName: "Created date"
+              dataType: string
+              isEditable: false
+              section: metadata
+            - name: ebdpointId
+              displayName: "Endpoint ID"
+              dataType: string
+              isEditable: false
+              section: metadata
+            - name: token
+              displayName: "Endpoint token"
+              dataType: string
+              isEditable: true
               section: metadata
       -
         height: 350
