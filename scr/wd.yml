@@ -152,8 +152,8 @@ dashboards:
               dataType: string
               isEditable: false
               section: metadata
-            - name: registerDate
-              displayName: "Register date"
+            - name: registeredDate
+              displayName: "Registered date"
               dataType: string
               isEditable: false
               section: metadata
@@ -162,7 +162,7 @@ dashboards:
               dataType: string
               isEditable: false
               section: metadata
-            - name: ebdpointId
+            - name: endpointId
               displayName: "Endpoint ID"
               dataType: string
               isEditable: false
