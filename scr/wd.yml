@@ -143,7 +143,6 @@ dashboards:
         config:
           title: Gizmo attributes
           type: metadata
-          allFields: true
           service: API_EPR
           baseUrl: api/v1
           fields:
