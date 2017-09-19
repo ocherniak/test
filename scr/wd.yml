@@ -151,22 +151,22 @@ dashboards:
               displayName: "Application version name"
               dataType: string
               isEditable: false
-              section: metadata
+              section: applicationVersionInfo
             - name: registeredDate
               displayName: "Registered date"
               dataType: string
               isEditable: false
-              section: metadata
+              section: applicationVersionInfo
             - name: createdDate
               displayName: "Created date"
               dataType: string
               isEditable: false
-              section: metadata
+              section: ""
             - name: endpointId
               displayName: "Endpoint ID"
               dataType: string
               isEditable: false
-              section: metadata
+              section: ""
             - name: token
               displayName: "Endpoint token"
               dataType: string
