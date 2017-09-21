@@ -136,7 +136,7 @@ dashboards:
           deviceName: Gizmo
           POLLING_TIMEOUT: 500
           timeSeriesName: location
-#          historical: true
+          historical: true
           historicalPeriod: 3600000 #show last hour in millis
       -
         height: 350
