@@ -137,6 +137,7 @@ dashboards:
           POLLING_TIMEOUT: 500
           timeSeriesName: location
           historical: true
+          historicalPeriod: 3600_000 //show one hour
       -
         height: 350
         percentWidth: 50
