@@ -244,7 +244,7 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
-            showLast: 300
+            showLast: 3600
             timeSeries:
               name: value1
             endpoints: '${dashboard.id}'
@@ -287,7 +287,7 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
-            showLast: 300
+            showLast: 3600
             timeSeries:
               name: value2
             endpoints: '${dashboard.id}'
@@ -331,7 +331,7 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
-            showLast: 300
+            showLast: 3600
             timeSeries:
               name: value3
             endpoints: '${dashboard.id}'
@@ -376,7 +376,7 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
-            showLast: 300
+            showLast: 3600
             timeSeries:
               name: value4
             endpoints: '${dashboard.id}'
@@ -420,7 +420,7 @@ dashboards:
           service: API_EPTS
           type: multiSeriesChart
           dataSource:
-            showLast: 300
+            showLast: 3600
             timeSeries:
               name: value5
             endpoints: '${dashboard.id}'
