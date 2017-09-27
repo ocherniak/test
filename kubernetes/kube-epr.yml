@@ -21,7 +21,7 @@ data:
 #data:
 #  epr-config: |
 #    # Add service configuration here
-
+#
 ---
 apiVersion: v1
 kind: Service
@@ -83,7 +83,7 @@ spec:
             memory: 1Gi
         envFrom:
         - configMapRef:
-            name: general-services-config
+            name: general-services-config   # Refer to the EPR service deployment documentation for creating this ConfigMap
         env:
         - name: MONGO_DATABASE
           value: epr_service
@@ -121,6 +121,12 @@ spec:
 #          value: /srv/epr/service-config.yml
         - name: JAVA_OPTIONS
           value: -Xmx700m
+        - name: JMX_MONITOR_USER_PASSWORD
+          value: "monitor"
+#          valueFrom:
+#            secretKeyRef:
+#              name: jmx-monitor-credentials   # Refer to the EPR service deployment documentation for creating this Secret
+#              key: password
         - name: CONFIG_REPOSITORY_SERVICE_URL
           valueFrom:
             configMapKeyRef:

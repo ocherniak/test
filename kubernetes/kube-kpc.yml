@@ -8,6 +8,22 @@
 #  keyStorePassword: a2V5X3N0b3JlX3Bhc3M=
 #  keyPassword: a2V5X3Bhc3M=
 #  trustStorePassword: dHJ1c3Rfc3RvcmVfcGFzcw==
+
+---
+# It's possible to crete ConfigMap from template described below
+# or using `kubectl create configmap <map-name> --from-file=<key-name>=<path-to-file>` command
+# Use `kpc-service-config` as map name and `kpc-config` as key name.
+# Example command: `kubectl create configmap kpc-service-config --from-file=kpc-config=/srv/kpc/service-config.yml`
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: kpc-service-config
+#  labels:
+#    name: kpc-service-config
+#data:
+#  kpc-config: |
+#    # Add service configuration here
+#
 ---
 apiVersion: v1
 kind: Service
@@ -32,7 +48,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: kpc-service
-  namespace: default
 spec:
   replicas: 1
   template:
@@ -60,9 +75,9 @@ spec:
             port: health-port
           initialDelaySeconds: 1
           periodSeconds: 1
-        volumeMounts:
-          - mountPath: /usr/lib/kpc-service/conf
-            name: kpc-conf-volume
+#        volumeMounts:
+#          - name: kpc-conf-volume
+#            mountPath: /srv/kpc/
 #          - mountPath: /usr/lib/kpc-service/security/keyStore
 #            name: key-store-volume
 #            readOnly: true
@@ -77,15 +92,16 @@ spec:
             memory: 350Mi
           limits:
             memory: 1800Mi
+        envFrom:
+        - configMapRef:
+            name: general-services-config   # Refer to the KPC service deployment documentation for creating this ConfigMap
         env:
-        - name: GET_HOSTS_FROM
-          value: dns
-        - name: CREDENTIAL_HOST_PORT
-          value: http://cm-service.default.svc.cluster.local:30730
         - name: CM_INSTANCE_NAME
           value: cm
-        - name: NATS_HOST_PORT
-          value: nats://nats-service.default.svc.cluster.local:4222
+#        - name: REDIS_HOST
+#          value: redis-master.$(NAMESPACE_NAME).svc.cluster.local
+#        - name: REDIS_PORT
+#          value: "6379"
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
           value: "60"    # -1 means unlimited timeout
         - name: JAVA_OPTIONS
@@ -96,16 +112,22 @@ spec:
           value: "false"
         - name: CERTIFICATE_CM_VALIDATION
           value: "false"
+        - name: JMX_MONITOR_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: jmx-monitor-credentials   # Refer to the KPC service deployment documentation for creating this Secret
+              key: password
         - name: CONFIG_REPOSITORY_SERVICE_URL
-          value: "http://scr-service.default.svc.cluster.local:30770"
-          # Point to the location of configuration for transport protocols such as MQTT or CoAP.
-          # If variable is not specified or value is empty, the service will get default configurations in application-<protocol-name>.yml file.
-        - name: APP_CONFIG_PATH
-          value: /usr/lib/kpc-service/conf/service-config.yml
+          valueFrom:
+            configMapKeyRef:
+              name: scr-url-config
+              key: scr-url
+          # Point to the location of the service configuration and customized configuration for transport protocols such as MQTT or CoAP.
+          # If variable is not specified or value is empty, the service will get default transport protocols configuration in application-<protocol-name>.properties file.
+#        - name: APP_CONFIG_PATH
+#          value: /srv/kpc/service-config.yml
         - name: JMX_PORT
           value: "30722"
-        - name: JMX_MONITOR_USER_PASSWORD
-          value: monitor
         ports:
         - name: transport-port
           containerPort: 1883
@@ -113,13 +135,16 @@ spec:
           containerPort: 30721
         - name: jmx-port
           containerPort: 30722
-      volumes:
-        - name: kpc-conf-volume
-          hostPath:
-            path: /usr/lib/kpc-service/conf
+#      volumes:
+#        - name: kpc-conf-volume
+#          configMap:
+#            name: kpc-service-config
+#            items:
+#            - key: kpc-config
+#              path: service-config.yml
 #        - name: trust-store-volume
-#          hostPath:
-#            path: /usr/lib/kpc-service/trustStore
+#          secret:
+#            secretName: mqtt.server.trustStore
 #        - name: key-store-volume
 #          secret:
 #            secretName: mqtt.server.keystore

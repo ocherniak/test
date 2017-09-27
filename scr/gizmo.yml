@@ -1,9 +1,9 @@
 client:
-  id: mqtt-kp-client
-  call-frequency: 5 #one call per the period in minutes
-  max-attempts: 0
-  retry-timeout: 7 # in seconds
-  mqtt-broker-uri: tcp://127.0.0.1:30720
+  id: mqtt-gizmo-client
+  call-frequency: 1 #one call per the period in seconds
+  max-attempts: 10    # -1 - client infinitely reconnects to server
+  retry-timeout-millis: 5000
+  mqtt-broker-uri: ${kpc-host-port}
   topic:
     protocol-version: kp1
     app-version-name: gizmo_v1
@@ -13,6 +13,13 @@ client:
     metadata-extension:
        name: epmx
        update-metadata-path: "update"
+       max-attempts: 3
+    configuration-extension:
+       name: cmx
+       configuration-updated-path: "config/json"
+       configuration-applied-path: "applied/json"
+    endpoint-configuration-repository:
+       ecr-host-port: ${ecr-host-port}
 
 generator:
   coordinates:
@@ -24,6 +31,6 @@ generator:
 
 simulator:
   gizmos:
-    - token: 33333
-    - token: 11111
-    - token: 22222
+    - token: gizmo1
+    - token: gizmo2
+    - token: gizmo3

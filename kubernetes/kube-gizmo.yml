@@ -1,4 +1,5 @@
 ---
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,7 +35,8 @@ spec:
         - name: hub-deploy
       containers:
       - name: gizmo-service
-        image: hub.kaaiot.io/evangelism/solutions/industrial/gizmo/simulators/gizmo/gizmo-service:1.0.0-SNAPSHOT
+        image: gizmo-service:1.0.0-SNAPSHOT
+        image: hub.kaaiot.io/evangelism/solutions/gizmo/simulators/gizmo/gizmo/gizmo-service:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         terminationMessagePolicy: FallbackToLogsOnError
         livenessProbe:
@@ -68,6 +70,12 @@ spec:
           value: "60"
         - name: JAVA_OPTIONS
           value: -Xmx700m
+        - name: KPC_HOST_PORT
+          value: tcp://kpc-service.default.svc.cluster.local:1883
+        - name: ECR_HOST_PORT
+          value: http://ecr-service.default.svc.cluster.local:30760
+        - name: CMX_HOST_PORT
+          value: http://cmx-service.default.svc.cluster.local:30790
         - name: CONFIG_REPOSITORY_SERVICE_URL
           value: "http://scr-service.default.svc.cluster.local:30770"
         - name: SERVICE_CONFIG_PATH
@@ -79,3 +87,4 @@ spec:
         - name: gizmo-conf-volume
           hostPath:
             path: /usr/lib/gizmo-service/conf
+---

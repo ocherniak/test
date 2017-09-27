@@ -74,6 +74,8 @@ spec:
           value: "webui-test"
         - name: CONFIGURATION_REPOSITORY_PASSWORD
           value: "webui-pass"
+        - name: CONFIGURATION_REPOSITORY_BRANCH
+          value: "master"
         - name: CONFIGURATION_REPOSITORY_SEARCH_PATHS
           value: "/scr"
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
@@ -81,7 +83,7 @@ spec:
         - name: JMX_PORT
           value: "30771"
         - name: JMX_MONITOR_USER_PASSWORD
-          value: monitor
+          value: "monitor"
         - name: JAVA_OPTIONS
           value: -Xmx700m
         - name: APP_CONFIG_PATH
