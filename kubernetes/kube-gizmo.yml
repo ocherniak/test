@@ -35,7 +35,6 @@ spec:
         - name: hub-deploy
       containers:
       - name: gizmo-service
-        image: gizmo-service:1.0.0-SNAPSHOT
         image: hub.kaaiot.io/evangelism/solutions/gizmo/simulators/gizmo/gizmo/gizmo-service:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         terminationMessagePolicy: FallbackToLogsOnError
