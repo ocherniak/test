@@ -23,7 +23,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: scr-service
-  namespace: default
 spec:
   replicas: 1
   template:
@@ -32,9 +31,9 @@ spec:
         app: scr-service
         tier: backend
     spec:
+      containers:
       imagePullSecrets:
         - name: hub-deploy
-      containers:
       - name: scr-service
         image: hub.kaaiot.io/kaaiot/scr/scr-service:1.0.0-SNAPSHOT
         terminationMessagePolicy: FallbackToLogsOnError
@@ -53,19 +52,15 @@ spec:
           timeoutSeconds: 50
           initialDelaySeconds: 50
           periodSeconds: 50
-        volumeMounts:
-          - mountPath: /usr/lib/scr-service/conf
-            name: scr-conf-volume
         resources:
           requests:
             memory: 350Mi
           limits:
             memory: 1Gi
+        envFrom:
+        - configMapRef:
+            name: general-services-config   # Refer to the SCR service deployment documentation for creating this ConfigMap
         env:
-        - name: GET_HOSTS_FROM
-          value: dns
-        - name: NATS_HOST_PORT
-          value: nats://nats-service.default.svc.cluster.local:4222
         - name : PRIVATE_DNS_HOST
           value: "10.2.2.45" #cybervision dns
         - name: CONFIGURATION_REPOSITORY_URL
@@ -75,7 +70,7 @@ spec:
         - name: CONFIGURATION_REPOSITORY_PASSWORD
           value: "webui-pass"
         - name: CONFIGURATION_REPOSITORY_BRANCH
-          value: "master"
+          value: "test-branch"
         - name: CONFIGURATION_REPOSITORY_SEARCH_PATHS
           value: "/scr"
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
@@ -83,17 +78,14 @@ spec:
         - name: JMX_PORT
           value: "30771"
         - name: JMX_MONITOR_USER_PASSWORD
-          value: "monitor"
+          valueFrom:
+            secretKeyRef:
+              name: jmx-monitor-credentials   # Refer to the SCR service deployment documentation for creating this Secret
+              key: password
         - name: JAVA_OPTIONS
           value: -Xmx700m
-        - name: APP_CONFIG_PATH
-          value: /usr/lib/scr-service/conf/app/app-config.yml
         ports:
         - name: scr-port
           containerPort: 30770
         - name: jmx-port
           containerPort: 30771
-      volumes:
-        - name: scr-conf-volume
-          hostPath:
-            path: /usr/lib/scr-service/conf

@@ -8,21 +8,6 @@ data:
   username:
   password:
 ---
-# It's possible to crete ConfigMap from template described below
-# or using `kubectl create configmap <map-name> --from-file=<key-name>=<path-to-file>` command
-# Use `epr-service-config` as a map name and `epr-config` as a key name.
-# Example command: `kubectl create configmap epr-service-config --from-file=epr-config=/srv/epr/service-config.yml`
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: epr-service-config
-#  labels:
-#    name: epr-service-config
-#data:
-#  epr-config: |
-#    # Add service configuration here
-#
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -73,9 +58,6 @@ spec:
             port: epr-port
           initialDelaySeconds: 1
           periodSeconds: 1
-#        volumeMounts:
-#          - name: epr-conf-volume
-#            mountPath: /srv/epr/
         resources:
           requests:
             memory: 350Mi
@@ -117,16 +99,13 @@ spec:
           value: epr
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
           value: "120"    # -1 means unlimited timeout
-#        - name: APP_CONFIG_PATH
-#          value: /srv/epr/service-config.yml
         - name: JAVA_OPTIONS
           value: -Xmx700m
         - name: JMX_MONITOR_USER_PASSWORD
-          value: "monitor"
-#          valueFrom:
-#            secretKeyRef:
-#              name: jmx-monitor-credentials   # Refer to the EPR service deployment documentation for creating this Secret
-#              key: password
+          valueFrom:
+            secretKeyRef:
+              name: jmx-monitor-credentials   # Refer to the EPR service deployment documentation for creating this Secret
+              key: password
         - name: CONFIG_REPOSITORY_SERVICE_URL
           valueFrom:
             configMapKeyRef:
@@ -139,10 +118,3 @@ spec:
           containerPort: 30750
         - name: jmx-port
           containerPort: 30751
-#      volumes:
-#        - name: epr-conf-volume
-#          configMap:
-#            name: epr-service-config
-#            items:
-#            - key: epr-config
-#              path: service-config.yml

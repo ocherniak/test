@@ -50,21 +50,17 @@ spec:
             port: gizmo-port
           initialDelaySeconds: 1
           periodSeconds: 1
-        volumeMounts:
-          - mountPath: /usr/lib/gizmo-service/conf
-            name: gizmo-conf-volume
         resources:
           requests:
             memory: 350Mi
           limits:
             memory: 1Gi
+        envFrom:
+        - configMapRef:
+            name: general-services-config
         env:
-        - name: GET_HOSTS_FROM
-          value: dns
         - name: INSTANCE_NAME
           value: gizmo
-        - name: NATS_HOST_PORT
-          value: nats://nats-service.default.svc.cluster.local:4222
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
           value: "60"
         - name: JAVA_OPTIONS
@@ -76,14 +72,11 @@ spec:
         - name: CMX_HOST_PORT
           value: http://cmx-service.default.svc.cluster.local:30790
         - name: CONFIG_REPOSITORY_SERVICE_URL
-          value: "http://scr-service.default.svc.cluster.local:30770"
-        - name: SERVICE_CONFIG_PATH
-          value: /usr/lib/gizmo-service/conf/service-config.yml
+          valueFrom:
+            configMapKeyRef:
+              name: scr-url-config
+              key: scr-url
         ports:
         - name: gizmo-port
           containerPort: 32702
-      volumes:
-        - name: gizmo-conf-volume
-          hostPath:
-            path: /usr/lib/gizmo-service/conf
 ---

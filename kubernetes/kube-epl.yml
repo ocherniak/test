@@ -21,7 +21,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: epl-service
-  namespace: default
 spec:
   replicas: 1
   template:
@@ -43,25 +42,25 @@ spec:
             port: epl-port
           initialDelaySeconds: 30
           periodSeconds: 5
+        name: liveness
         readinessProbe:
           httpGet:
             path: /health
             port: epl-port
           initialDelaySeconds: 1
           periodSeconds: 1
-        volumeMounts:
-          - mountPath: /usr/lib/epl-service/conf
-            name: epl-conf-volume
+        name: readiness
         resources:
           requests:
             memory: 100Mi
+        envFrom:
+        - configMapRef:
+            name: general-services-config   # Refer to the EPL service deployment documentation for creating this ConfigMap
         env:
-        - name: GET_HOSTS_FROM
-          value: dns
         - name: MONGO_DATABASE
           value: epl_service
         - name: MONGO_HOST
-          value: mongo.default.svc.cluster.local
+          value: mongo.$(NAMESPACE_NAME).svc.cluster.local
         - name: MONGO_USERNAME
           value: "USERNAME"
         - name: MONGO_PASSWORD
@@ -86,27 +85,24 @@ spec:
           value: kpc
         - name: JAVA_OPTIONS
           value: -Xmx700m
-        - name: NATS_HOST_PORT
-          value: nats://nats-service.default.svc.cluster.local:4222
         - name: EPR_HOST_PORT
-          value: http://epr-service.default.svc.cluster.local:30750
+          value: http://epr-service.$(NAMESPACE_NAME).svc.cluster.local:30750
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
           value: "120"
-        - name: APP_CONFIG_PATH
-          value: /usr/lib/epl-service/conf/app/app-config.yml
         - name: JMX_PORT
           value: "30811"
         - name: JMX_MONITOR_USER_PASSWORD
-          value: monitor
+          valueFrom:
+            secretKeyRef:
+              name: jmx-monitor-credentials   # Refer to the EPL service deployment documentation for creating this Secret
+              key: password
         - name: CONFIG_REPOSITORY_SERVICE_URL
-          value: "http://scr-service.default.svc.cluster.local:30770"
+          valueFrom:
+            configMapKeyRef:
+              name: scr-url-config
+              key: scr-url
         ports:
         - name: epl-port
           containerPort: 30810
         - name: jmx-port
           containerPort: 30811
-      volumes:
-        - name: epl-conf-volume
-          hostPath:
-            path: /usr/lib/epl-service/conf
-
