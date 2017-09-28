@@ -1,7 +1,7 @@
 #!/bin/bash
 
-configmaps_dir="kubernetes/configmaps"
-configmaps_filter="*configmap.yml"
+configmaps_dir="kubernetes/kubernetes-config"
+configmaps_filter="*config.yml"
 services_dir="kubernetes"
 services_filter="kube-*.yml"
 
