@@ -44,15 +44,17 @@ spec:
             memory: 350Mi
           limits:
             memory: 1Gi
+        envFrom:
+        - configMapRef:
+            name: general-services-config
         env:
-        - name: GET_HOSTS_FROM
-          value: dns
         - name: CONFIG_REPOSITORY_SERVICE_URL
-          value: "http://scr-service.default.svc.cluster.local:30770"
+          valueFrom:
+            configMapKeyRef:
+              name: scr-url-config
+              key: scr-url
         - name: REPOSITORY_BRANCH_NAME
           value: "test-branch"
-        - name: NATS_HOST_PORT
-          value: nats://nats-service.default.svc.cluster.local:4222
         - name: SERVICE_INSTANCE_NAME
           value: wd
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC

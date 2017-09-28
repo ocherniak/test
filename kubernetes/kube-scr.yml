@@ -31,9 +31,9 @@ spec:
         app: scr-service
         tier: backend
     spec:
-      containers:
       imagePullSecrets:
         - name: hub-deploy
+      containers:
       - name: scr-service
         image: hub.kaaiot.io/kaaiot/scr/scr-service:1.0.0-SNAPSHOT
         terminationMessagePolicy: FallbackToLogsOnError
