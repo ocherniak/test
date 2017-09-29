@@ -54,7 +54,7 @@ spec:
               name: scr-url-config
               key: scr-url
         - name: REPOSITORY_BRANCH_NAME
-          value: "master"
+          value: "test-branch"
         - name: SERVICE_INSTANCE_NAME
           value: wd
         - name: DEPENDENCY_SERVICES_WAIT_TIMEOUT_SEC
