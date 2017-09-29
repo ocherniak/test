@@ -27,6 +27,7 @@ dashboards:
     isTopLevel: true
     path: /gizmo
     title: Gizmo
+    sidebarTitle: Gizmo
     widgets:
       -
         height: 500
