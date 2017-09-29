@@ -13,10 +13,13 @@ applications:
     value-field: value5
   - name: location
     value-field: speed
-    tag-fields: latitude,longitude
+    tag-fields:
+    - name: latitude
+    - name: longitude
   - name: logs
     value-field: message
-    tag-fields: logLevel
+    tag-fields:
+    - name: logLevel
   versions:
   - name: gizmo_v1
     number: 1
