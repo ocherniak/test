@@ -44,8 +44,8 @@ spec:
       containers:
       - name: epr-service
         image: hub.kaaiot.io/kaaiot/epr/epr-service:1.0.0-SNAPSHOT
-        terminationMessagePolicy: FallbackToLogsOnError
         imagePullPolicy: Always
+        terminationMessagePolicy: FallbackToLogsOnError
         livenessProbe:
           httpGet:
             path: /health

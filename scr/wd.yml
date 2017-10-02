@@ -38,9 +38,6 @@ dashboards:
           title: Gizmo list
           applicationName: gizmo
           service: API_EPR
-          generate: true
-          generateTitle: Generate new
-          generateTimeout: 1000
           baseUrl: api/v1
           height: 500
           columns:
